@@ -1,0 +1,24 @@
+import java.io.File
+
+import com.boomi.execution.ExecutionUtil;
+
+
+logger = ExecutionUtil.getBaseLogger();
+
+String IR_TALEND_OUTPUT =ExecutionUtil.getDynamicProcessProperty("IR_TALEND_OUTPUT");
+String JOB_GUID =ExecutionUtil.getDynamicProcessProperty("JOB_GUID");
+String CMMS_ID =ExecutionUtil.getDynamicProcessProperty("CMMS_ID");
+
+
+logger.info("CMMS_ID: "+CMMS_ID);
+logger.info("JOB_GUID : "+JOB_GUID);
+def folderPath = IR_TALEND_OUTPUT+"\\G2DL_EAM_INGESTION\\"+CMMS_ID+"_"+JOB_GUID
+
+def folder = new File(folderPath)
+
+if (!folder.exists()) {
+    folder.mkdirs()
+	logger.info("Folder created: "+folderPath);
+} else {
+    logger.info("Folder already exists: "+folderPath);
+}
